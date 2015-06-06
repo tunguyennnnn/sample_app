@@ -112,6 +112,22 @@ describe "Authentication" do
       describe "submitting a DELETE request to the User#destroy action" do
         before {delete user_path(user)}
         specify {respone.should redirect_to(root_path)}
+      end
+    end
+
+    describe "in the Microposts controller" do
+
+      describe "submitting to the create action" do
+        before {post microposts_path}
+        specify { respond.should redirect_to(signin_path)}
+      end
+
+      describe "submitting to the destroy action" do
+        before do
+          micropost = FactorialGirl.create(:micropost)
+          delete micropost_path(micropost)
+        end
+        specify {response.should redirect_to(signin_path)}
 
       end
 
